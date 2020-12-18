@@ -1,7 +1,7 @@
 # Password_Generator
 Allows the user to create a random password, the length of their choosing, with or without special characters, numbers, capital letters or lower case letters
 
-The user enters the website and must click the red "Generate Password" button. He is then given some prompts that he must answer.
+The user enters the website and must click the red "Generate Password" button. They are then given some prompts that he must answer.
     -How many characters do you want your password to have?
     -Do you want special characters (e.g &, *, (, or )) in your password?
     -Do you want numbers in your password?
