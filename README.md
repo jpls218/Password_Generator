@@ -12,4 +12,4 @@ After answering these questions are answered, your password will be generated ra
 
 See below for a screenshot:
 
-![Password Generator Screenshot](Password_Generator.jped.png)
+![Password Generator Screenshot](Password_Generator.jpeg.png)
