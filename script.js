@@ -1,7 +1,7 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 // Array of special characters to be included in password
-var specialCharacters = ['@','%',
+var specialCharacters = ['@', '%',
   '+',
   '\\',
   '/',
@@ -85,56 +85,106 @@ var upperCasedCharacters = [
   'Z'
 ];
 
+var choices;
+//Empty array where all of my possible character choices for my password will go
 var passChars = [];
+//Array that will contain all of the characters making up of my newly generated passwords
+var finalArray = [];
+
 // Write password to the #password input
+
+function generatePassword() {
+  var options = getPasswordOptions();
+}
+
+//prompts the user for their desired password length and then asks them what kind of characters they want
+function getPasswordOptions() {
+  var length = parseInt(prompt("How many characters would you like to have in your password?"))
+// Ensures the password is between 8 and 128 characters long
+  if (length >= 8 && length <= 128) {
+    alert("You have chosen a password of " + length + " characters.");
+    confirmSpecialCharacters = confirm("Would you like special characters in your password?");
+    confirmNumbers = confirm("Would you like numbers in your password?");
+    confirmUpperCaseLetters = confirm("Would you like upper case letters in your password?");
+    confirmLowerCaseLetters = confirm("Would you like lower case letters in your password?");
+  }
+  // Won't run if they enter any other value
+  else {
+    alert("You need to a select a number between 8-128.")
+  };
+  // If the user decides to include all 4 character type options for their password
+  if (!confirmSpecialCharacters && !confirmNumbers && !confirmUpperCaseLetters && !confirmLowerCaseLetters) {
+    alert("You must select at least ONE of the options in order to generate a password!");
+  }
+  // If the user decides to include only 3 character type options for their password
+  else if (confirmSpecialCharacters && confirmNumbers && confirmUpperCaseLetters && confirmLowerCaseLetters) {
+    choices = passChars.concat(specialCharacters, numericCharacters, lowerCasedCharacters, upperCasedCharacters);
+  }
+  else if (confirmSpecialCharacters && confirmNumbers && confirmUpperCaseLetters) {
+    choices = passChars.concat(specialCharacters, numericCharacters, upperCasedCharacters);
+  }
+  else if (confirmSpecialCharacters && confirmNumbers && confirmLowerCaseLetters) {
+    choices = passChars.concat(specialCharacters, numericCharacters, lowerCasedCharacters);
+  }
+  else if (confirmSpecialCharacters && confirmLowerCaseLetters && confirmUpperCaseLetters) {
+    choices = passChars.concat(specialCharacters, lowerCasedCharacters, upperCasedCharacters);
+  }
+  else if (confirmNumbers && confirmLowerCaseLetters && confirmUpperCaseLetters) {
+    choices = passChars.concat(numericCharacters, lowerCasedCharacters, upperCasedCharacters);
+  }
+  // If the user decides to include only 2 character type options for their password
+  else if (confirmSpecialCharacters && confirmNumbers) {
+    choices = passChars.concat(specialCharacters, numericCharacters);
+  }
+  else if (confirmSpecialCharacters && confirmLowerCaseLetters) {
+    choices = passChars.concat(specialCharacters, lowerCasedCharacters);
+  } 
+  else if (confirmSpecialCharacters && confirmUpperCaseLetters) {
+    choices = passChars.concat(specialCharacters, upperCasedCharacters);
+  }
+  else if (confirmNumbers && confirmLowerCaseLetters) {
+    choices = passChars.concat(numericCharacters, lowerCasedCharacters);
+  } 
+  else if (confirmLowerCaseLetters && confirmUpperCaseLetters) {
+    choices = passChars.concat(lowerCasedCharacters, upperCasedCharacters);
+  } 
+  else if (confirmNumbers && confirmUpperCaseLetters) {
+    choices = passChars.concat(numericCharacters, upperCasedCharacters);
+  }
+  // If the user decides to include only 1 character type option for their password
+  else if (confirmSpecialCharacters) {
+    choices = passChars.concat(specialCharacters);
+  }
+  else if (confirmUpperCaseLetters) {
+    choices = passChars.concat(upperCasedCharacters);
+  }
+  else if (confirmLowerCaseLetters) {
+    choices = passChars.concat(numericCharacters);
+  }
+  else if (confirmLowercase) {
+    choices = passChars.concat(lowerCasedCharacters);
+  }
+  //Random selection of all the variables
+  for (var i = 0; i < length; i++) {
+    var randomPassword = choices[Math.floor(Math.random() * choices.length)];
+    finalArray.push(randomPassword);
+  }
+  //Turns the password into a string which can be pushed to the textbox
+  var finalPassword = finalArray.join("");
+    UserInput(finalPassword);
+    return finalPassword;
+};
+//Puts password in the text box on the webpage
+function UserInput(finalPassword) {
+  document.getElementById("password").textContent = finalPassword;
+}
+
 function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
-
-  passwordText.value = password;
-
+  passwordText.textContent = finalPassword; 
 }
 
-function generatePassword(){
-  var options = getPasswordOptions();
-}
-function getRandomUpperCase(){
-  return String.fromCharCode(Math.floor(Math.random()*26)+65);
- }
-console.log(getRandomUpperCase());
-function getPasswordOptions() {
-  var length = parseInt(prompt("How many characters would you like to have in your password?"))
- 
-  if (length >= 8 && length <= 128) {
-    alert("You have chosen a password of " + length + "characters.")
-  }
-  else {
-    alert("You need to a select a number between 8-128.")
-  }
-
-  var hasSpecialCharacters = confirm("Click ok if you would like special characters in your password.");
-  if (hasSpecialCharacters == "true") {
-    return passChars.concat(specialCharacters);
-  }
-  else {
-    passChars;
-    alert("You have chosen to not have special characters")
-  }
-  var hasCapitalLetters = confirm("Click ok if you would like capital letters in your password.")
-  if (hasCapitalLetters == "true") {
-    return passChars.concat(upperCasedCharacters);
-  }
-  else {
-    passChars;
-  }
-  var hasLowerCaseLetters = confirm("Click ok if you would like capital letters in your password.")
-  if (hasLowerCaseLetters == "true") {
-    return passChars.concat(lowerCasedCharacters);
-  }
-  else {
-    return passChars;
-  }
-}
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
