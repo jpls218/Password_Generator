@@ -1,5 +1,4 @@
 # Password_Generator
-<<<<<<< HEAD
 Allows the user to create a random password, the length of their choosing, with or without special characters
 
 The user enters the website and must click the red "Generate Password" button. He is then given some prompts that he must answer.
