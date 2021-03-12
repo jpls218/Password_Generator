@@ -1,3 +1,10 @@
+var choices;
+//Empty array where all of my possible character choices for my password will go
+var passChars = [];
+//Array that will contain all of the characters making up of my newly generated passwords
+// var finalArray = [];
+
+var finalPassword;
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 // Array of special characters to be included in password
@@ -56,57 +63,26 @@ var lowerCasedCharacters = [
   'z'
 ];
 // Array of uppercase characters to be included in password
-var upperCasedCharacters = [
-  'A',
-  'B',
-  'C',
-  'D',
-  'E',
-  'F',
-  'G',
-  'H',
-  'I',
-  'J',
-  'K',
-  'L',
-  'M',
-  'N',
-  'O',
-  'P',
-  'Q',
-  'R',
-  'S',
-  'T',
-  'U',
-  'V',
-  'W',
-  'X',
-  'Y',
-  'Z'
-];
-
-var choices;
-//Empty array where all of my possible character choices for my password will go
-var passChars = [];
-//Array that will contain all of the characters making up of my newly generated passwords
-var finalArray = [];
+var upperCasedCharacters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
 
 // Write password to the #password input
 
 function generatePassword() {
-  var options = getPasswordOptions();
+  getPasswordOptions();
 }
 
 //prompts the user for their desired password length and then asks them what kind of characters they want
 function getPasswordOptions() {
+
+  var finalArray = [];
   var length = parseInt(prompt("How many characters would you like to have in your password?"))
 // Ensures the password is between 8 and 128 characters long
   if (length >= 8 && length <= 128) {
     alert("You have chosen a password of " + length + " characters.");
-    confirmSpecialCharacters = confirm("Would you like special characters in your password?");
-    confirmNumbers = confirm("Would you like numbers in your password?");
-    confirmUpperCaseLetters = confirm("Would you like upper case letters in your password?");
-    confirmLowerCaseLetters = confirm("Would you like lower case letters in your password?");
+    var confirmSpecialCharacters = confirm("Would you like special characters in your password?");
+    var confirmNumbers = confirm("Would you like numbers in your password?");
+    var confirmUpperCaseLetters = confirm("Would you like upper case letters in your password?");
+    var confirmLowerCaseLetters = confirm("Would you like lower case letters in your password?");
   }
   // Won't run if they enter any other value
   else {
@@ -171,20 +147,22 @@ function getPasswordOptions() {
   }
   //Turns the password into a string which can be pushed to the textbox
   var finalPassword = finalArray.join("");
-    UserInput(finalPassword);
-    return finalPassword;
+      UserInput(finalPassword);
+    
+      return finalPassword;
 };
 //Puts password in the text box on the webpage
 function UserInput(finalPassword) {
-  document.getElementById("password").textContent = finalPassword;
+  document.getElementById("password").innerText = finalPassword;
 }
 
-function writePassword() {
-  var password = generatePassword();
-  var passwordText = document.querySelector("#password");
-  passwordText.textContent = finalPassword; 
-}
-
+// function writePassword() {
+//   var passwordText = document.querySelector("#password");
+//   console.log(passwordText);
+//   passwordText.textContent = finalPassword;
+//   generatePassword();
+// }
 
 // Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
+generateBtn.addEventListener("click", generatePassword);
+
